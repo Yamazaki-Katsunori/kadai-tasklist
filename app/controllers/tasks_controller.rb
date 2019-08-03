@@ -1,11 +1,11 @@
 class TasksController < ApplicationController
+    before_action :set_task, only: [:show, :edit, :update, :destroy]
     
     def index
         @tasks = Task.all
     end
     
     def show
-        @task = Task.find(params[:id])
     end
     
     def new
@@ -23,11 +23,9 @@ class TasksController < ApplicationController
     end
     
     def edit
-        @task = Task.find(params[:id])
     end
     
     def update
-        @task = Task.find(params[:id])
         
         if @task.update(task_params)
             redirect_to @task
@@ -37,7 +35,7 @@ class TasksController < ApplicationController
     end
     
     def destroy
-        @task = Task.find(params[:id])
+        
         @task.destroy
         
         redirect_to tasks_url
@@ -45,9 +43,14 @@ class TasksController < ApplicationController
     
     private
     
+    #繰り返し利用を共通化
+    def set_task
+        @task = Task.find(params[:id])
+    end
+    
     # ストロングパラメーター（入力データの精査機能）
     def task_params
-        params.require(:task).permit(:content)
+        params.require(:task).permit(:content, :status)
     end
         
 end
