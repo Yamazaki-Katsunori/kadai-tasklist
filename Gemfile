@@ -56,3 +56,8 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
 
 # kaminari
 gem 'kaminari'
+
+#heroku postgresql db => production
+group :production do
+  gem 'pg', '>= 0.18', '< 2.0'
+end
