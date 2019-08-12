@@ -1,27 +1,17 @@
+<% if logged_in? %>
+<p>ログイン状態のユーザー：<%= current_user.name %></p>
+
 <h1>タスク管理一覧</h1>
 
-<% if @tasks.any? %>
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>id</th>
-            <th>ステータス</th>
-            <th>タイトル</th>
-        </tr>
-    </thead>
-    <tbody>
-        <% @tasks.each do |task| %>
-        <tr>
-            <td><%= link_to task.id, task %></td>
-            <td><%= task.status %></td>
-            <td><%= task.content %></td>
-        </tr>
-        <% end %>
-    </tbody>
-</table>
-<% end %>
-<div>
-    <%= paginate @tasks %>
-</div>
+<%= render 'tasks/tasks', tasks: @tasks %>
 
 <%= link_to '新規タスクの作成', new_task_path , class: 'btn btn-primary' %>
+
+<% else %>
+
+<div>
+  <p>ログインしてください。<%= link_to 'ログイン', login_path, class: 'btn btn-lg btn-primary' %></p>
+  <p><%= link_to '新規登録の方はこちらへ', new_user_path , class: 'btn btn-primary' %></p>
+</div>
+
+<% end %>
