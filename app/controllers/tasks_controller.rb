@@ -10,6 +10,7 @@ class TasksController < ApplicationController
     end
     
     def show
+         
     end
     
     def new
@@ -44,17 +45,19 @@ class TasksController < ApplicationController
     end
     
     def destroy
+        
+        
         @task.destroy
         
         flash[:success] = 'Taskを正常に削除しました。'
-        redirect_back(fallback_location: root_path)
+        redirect_to root_url
     end
     
     private
     
     #繰り返し利用を共通化
     def set_task
-        @task = current_user.tasks.find(params[:id])
+        @task = current_user.tasks.find_by(id: params[:id])
     end
     
     # ストロングパラメーター（入力データの精査機能）

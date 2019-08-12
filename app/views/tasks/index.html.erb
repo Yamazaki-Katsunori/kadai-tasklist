@@ -3,7 +3,29 @@
 
 <h1>タスク管理一覧</h1>
 
-<%= render 'tasks/tasks', tasks: @tasks %>
+<% if @tasks.any? %>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>id</th>
+            <th>ステータス</th>
+            <th>タイトル</th>
+        </tr>
+    </thead>
+    <tbody>
+        <% @tasks.each do |task| %>
+        <tr>
+            <td><%= link_to task.id, task %></td>
+            <td><%= task.status %></td>
+            <td><%= task.content %></td>
+        </tr>
+        <% end %>
+    </tbody>
+</table>
+<% end %>
+<div>
+    <%= paginate @tasks %>
+</div>
 
 <%= link_to '新規タスクの作成', new_task_path , class: 'btn btn-primary' %>
 
